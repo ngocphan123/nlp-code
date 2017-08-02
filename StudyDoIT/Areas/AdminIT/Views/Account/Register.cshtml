@@ -1,0 +1,56 @@
+﻿@model StudyDoIT.Models.NLP.User
+
+@{
+    ViewBag.Title = "Logout";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<div class="panel-title-sign mt-xl text-right">
+    <h2 class="title text-uppercase text-weight-bold m-none"><i class="fa fa-user mr-xs"></i> Sign Up</h2>
+</div>
+<div class="panel-body">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <div class="form-group mb-lg">
+            <label>UserName</label>
+            @Html.TextBox("UserName", "", new { @class = "form-control input-lg" })
+        </div>
+        <div class="form-group mb-lg">
+            <label>E-mail</label>
+            @Html.TextBox("Email", "", new { @class = "form-control input-lg" })
+        </div>
+        <div class="form-group mb-none">
+            <div class="row">
+                <div class="col-sm-6 mb-lg">
+                    <label>Password</label>
+                    @Html.Password("PassWord", "", new { @class = "form-control input-lg" })
+                </div>
+                <div class="col-sm-6 mb-lg">
+                    <label>Password Confirmation</label>
+                    @Html.Password("PassWordConfirm", "", new { @class = "form-control input-lg" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="checkbox-custom checkbox-default">
+                    <input type="checkbox" name="AgreeTerms" />
+                    @*@Html.CheckBox("AgreeTerms")*@
+                    <label for="AgreeTerms">I agree with <a href="">terms of use</a></label>
+                </div>
+            </div>
+            <div class="col-sm-3 text-right">
+                <button type="submit" class="btn btn-primary hidden-xs">Register</button>
+                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Register</button>
+            </div>
+        </div>
+        <span class="mt-lg mb-lg line-thru text-center text-uppercase">
+            <span>or</span>
+        </span>
+        <div class="mb-xs text-center">
+            @*<a class="btn btn-facebook mb-md ml-xs mr-xs">Connect with <i class="fa fa-facebook"></i></a>
+            <a class="btn btn-twitter mb-md ml-xs mr-xs">Connect with <i class="fa fa-twitter"></i></a>*@
+        </div>
+        <p class="text-center">Already have an account? <a href="/AdminIT/Account/Login">Sign In!</a> </p>
+    }
+</div>

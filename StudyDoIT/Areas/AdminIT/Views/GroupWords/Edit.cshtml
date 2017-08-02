@@ -1,0 +1,58 @@
+﻿@model StudyDoIT.Models.NLP.GroupWord
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+
+                <h2 class="panel-title">Sửa từ lõi</h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Edit", "GroupWords", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Mã từ lõi</label>
+                        <div class="col-md-6">
+                            @Html.ValidationSummary(true)
+                            @Html.TextBoxFor(model => model.Id, new { @class = "form-control", disabled = "" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Tên từ lõi</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.Word, new { @class = "form-control", placeholder = "Tên từ lõi", required = "required" })
+                            @Html.ValidationMessageFor(model => model.Word)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Nhóm sản phẩm</label>
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.ProductId, (SelectList)ViewBag.Product, "Nhóm sản phẩm", new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(model => model.ProductId)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-save"></i> Lưu</button>
+                            <button onclick="form.action = '/AdminIT/GroupWords'" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> Quay lại danh sách</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+
+

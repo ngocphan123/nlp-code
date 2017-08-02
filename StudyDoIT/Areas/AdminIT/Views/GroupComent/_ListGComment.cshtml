@@ -1,0 +1,43 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.GroupComent>
+
+@if (Model != null)
+{
+    <section class="panel" id="listGComment">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            </div>
+            <h2 class="panel-title">Danh sách sản phẩm</h2>
+            <div style="float: right; margin-right: 40px; margin-top: -27px;">
+            </div>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+                   data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+                <thead>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Nhóm sản phẩm</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="gradeX">
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                            <td class="actions">
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                                @*<a href="~/AdminIT/LoadComment/Create/@item.Id"><i class="fa fa-plus-circle"></i> Thêm bình luận</a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}

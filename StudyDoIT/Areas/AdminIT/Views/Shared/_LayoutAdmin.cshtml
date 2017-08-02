@@ -1,0 +1,584 @@
+﻿
+<!doctype html>
+<html class="fixed">
+
+<head>
+    <!-- Basic -->
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="dragonviet" />
+    
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Web Fonts  -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+    <link href="~/Areas/AdminIT/Content/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/vendor/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Areas/AdminIT/Content/vendor/pnotify/pnotify.custom.css" />
+
+    <link href="~/Areas/AdminIT/Content/vendor/jstree/themes/default/style.css" rel="stylesheet" />
+
+    <link href="~/Areas/AdminIT/Content/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" rel="stylesheet" />
+
+    <link href="~/Areas/AdminIT/Content/vendor/select2/select2.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/vendor/jquery-datatables-bs3/assets/css/datatables.css" rel="stylesheet" />
+
+    <link href="~/Areas/AdminIT/Content/vendor/summernote/summernote.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/vendor/summernote/summernote-bs3.css" rel="stylesheet" />
+
+    <link href="~/Areas/AdminIT/Content/stylesheets/theme.css" rel="stylesheet" />
+    <link href="~/Areas/AdminIT/Content/stylesheets/theme-custom.css" rel="stylesheet" />
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <script src="~/Areas/AdminIT/Content/vendor/modernizr/modernizr.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+</head>
+<body>
+    <section class="body">
+        <!-- start: header -->
+        @Html.Action("LoadHeader","Home")
+        <!-- end: header -->
+        <div class="inner-wrapper">
+            <!-- start: sidebar -->
+            @Html.Action("LoadMenu", "Home")  
+            <!-- end: sidebar -->
+            <section role="main" class="content-body">
+                <header class="page-header">
+                    <h2>TRANG QUẢN LÝ</h2>
+
+                    @*<div class="right-wrapper pull-right">
+                        <ol class="breadcrumbs">
+                            <li>
+                                <a href="index-2.html">
+                                    <i class="fa fa-home"></i>
+                                </a>
+                            </li>
+                            <li><span>Trang quản lý</span></li>
+                        </ol>
+
+                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+                    </div>*@
+                </header>
+                <!-- start: page -->
+                <div class="row">
+                    @RenderBody()
+                </div>
+
+                <!-- end: page -->
+            </section>
+        </div>
+        @*@Html.Partial("_SideBar")*@
+    </section>
+ 
+    <script src="~/Areas/AdminIT/Content/vendor/jquery/jquery.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-cookie/jquery.cookie.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jstree/jstree.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    <script src="~/Areas/AdminIT/Content/vendor/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/fuelux/js/spinner.js"></script>	
+    <script src="~/Areas/AdminIT/Content/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/pnotify/pnotify.custom.js"></script>
+
+    <script src="~/Areas/AdminIT/Content/vendor/select2/select2.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script src="~/Areas/AdminIT/Content/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>   
+
+    <script src="~/Areas/AdminIT/Scripts/theme.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/theme.custom.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/theme.init.js"></script>
+
+    <script src="~/Areas/AdminIT/Scripts/tables/examples.datatables.default.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/tables/examples.datatables.row.with.details.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/tables/examples.datatables.tabletools.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/tables/examples.datatables.editable.js"></script>
+    @*<script src="~/Areas/AdminIT/Scripts/tables/examples.datatables.ajax.js"></script>*@
+
+    <script src="~/Areas/AdminIT/Scripts/ui-elements/examples.treeview.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/forms/examples.advanced.form.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/forms/examples.wizard.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/ui-elements/examples.modals.js"></script>
+    <script src="~/Areas/AdminIT/Scripts/ui-elements/examples.notifications.js"></script>
+    
+
+    @RenderSection("script", false)
+
+    <input type="hidden" id="success" value="@TempData["success"]" />
+    <input type="hidden" id="info" value="@TempData["info"]" />
+    <input type="hidden" id="warning" value="@TempData["warning"]" />
+    <input type="hidden" id="error" value="@TempData["error"]" />
+
+    <script>
+        $(function () {
+            if ($('#success').val()) {
+                displayMessage($('#success').val(), 'success');
+            }
+            if ($('#info').val()) {
+                displayMessage($('#info').val(), 'info');
+            }
+            if ($('#warning').val()) {
+                displayMessage($('#warning').val(), 'warning');
+            }
+            if ($('#error').val()) {
+                displayMessage($('#error').val(), 'error');
+            }
+        });
+        var displayMessage = function (message, msgType) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onClick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "8000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr[msgType](message);
+        };
+
+        //Tools Postagging
+        $('#posTagging').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/ToolsTest/LoadResufltPosTags?text=' + $('#Description').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#resultPostTag').html(result);
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+
+            });
+        });
+
+        //Load danh sách từ lõi
+        $('#loadListGW').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/GroupWords/LoadListGroupWord?idp=' + $('#ProductId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listGWord').html(result);
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+
+            });
+        });
+
+        //Load danh sách sản phẩm
+        $('#loadListGC').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/GroupComent/LoadListGComment?idp=' + $('#ProductId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listGComment').html(result);
+                $('#loadImage').addClass('hide');
+                notification("Load dữ liệu", "Load dữ liệu thành công!", "success");
+                //notification("Load dữ liệu", "Load dữ liệu thành công!", "info");
+                //notification("Load dữ liệu", "Load dữ liệu thành công!", "error");
+            })
+            .error(function (xhr, status) {
+
+            });
+        });
+
+
+        //Load bình luận sản phẩm
+        $('#loadListCM').click(function () {
+            $('#loadImage').removeClass('hide')
+            $('#divResuft').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/LoadComment/LoadListComment?idgc=' + $('#GroupComentId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listComment').html(result);
+                $('#loadImage').addClass('hide')
+                $('#divResuft').addClass('hide')
+            })
+            .error(function (xhr, status) {
+            })
+            .complete(function () {
+
+                //alert('Xong');
+                (function ($) {
+                    'use strict';
+                    var datatableInit = function () {
+                        var $table = $('#datatable-tabletools');
+
+                        $table.dataTable({
+                            sDom: "<'text-right mb-md'T>" + $.fn.dataTable.defaults.sDom,
+                            oTableTools: {
+                                sSwfPath: $table.data('swf-path'),
+                                aButtons: [
+                                    {
+                                        sExtends: 'pdf',
+                                        sButtonText: 'PDF'
+                                    },
+                                    {
+                                        sExtends: 'csv',
+                                        sButtonText: 'CSV'
+                                    },
+                                    {
+                                        sExtends: 'xls',
+                                        sButtonText: 'Excel'
+                                    },
+                                    {
+                                        sExtends: 'print',
+                                        sButtonText: 'Print',
+                                        sInfo: 'Please press CTR+P to print or ESC to quit'
+                                    }
+                                ]
+                            }
+                        });
+                    };
+
+                    $(function () {
+                        datatableInit();
+                    });
+
+                }).apply(this, [jQuery]);
+            });
+        });
+
+        //Load câu được tách từ bình luận sản phẩm
+        $('#loadListSen').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/Sentenses/LoadListSentenses?idgc=' + $('#GroupComentId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listSentenses').html(result);
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+
+            });
+        });
+
+        //Chạy tách câu
+        $(document).on('click', '#loadSentenses', function (event) {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/Sentenses/SplitSentenses?idgc=' + $('#GroupComentId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listSentenses').html(result);
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+                $('#loadImage').addClass('hide')
+            });
+        });
+
+        //Load từ điển sản phẩm
+        $('#loadListVoc').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/Vocabulary/LoadListVocabulary?idgc=' + $('#GroupComentId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listVocabulary').html(result);
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+                $('#loadImage').addClass('hide')
+            });
+        });
+
+        //Chạy load từ điển
+        $(document).on('click', '#loadVocabulary', function (event) {
+            $('#loadImage2').removeClass('hide')
+            $('#loadVoca').addClass('hide')
+            $.ajax({
+                url: '/AdminIT/Vocabulary/LoadVocabulary?idgc=' + $('#GroupComentId').val() + '&typew=' + $("input[name='typeWord']:checked").val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#listVocabulary').html(result);
+                $('#loadImage2').addClass('hide')
+            })
+            .error(function (xhr, status) {
+                $('#loadImage2').addClass('hide')
+            });
+        });
+
+        //Thực hiện tranning
+        $('#tranningPro').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/Tranning/Tranning?idgc=' + $('#GroupComentId').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+                $('#loadImage').addClass('hide')
+            });
+        });
+        
+        //Load kết quả gán nhãn
+        //$('#loadListAL').click(function () {
+        //    $('#loadImage').removeClass('hide')
+        //    $.ajax({
+        //        url: '/AdminIT/TranningResuft/LoadResuftOther?idgc=' + $('#GroupComentId').val(),
+        //        contentType: 'application/html; charset=utf-8',
+        //        type: 'POST',
+        //        dataType: 'html'
+        //    })
+        //    .success(function (result) {
+        //        $('#listOther').html(result);
+        //        $('#loadImage').addClass('hide')
+        //    })
+        //    .error(function (xhr, status) {
+        //        $('#loadImage').addClass('hide')
+        //    });
+        //});
+
+        //$('#loadListAL').click(function () {
+        //    $('#loadImage').removeClass('hide')
+            
+        //    $.ajax({
+        //        url: '/AdminIT/TranningResuft/LoadResuftAddLabel?idgc=' + $('#GroupComentId').val(),
+        //        contentType: 'application/html; charset=utf-8',
+        //        type: 'POST',
+        //        dataType: 'html'
+        //    })
+        //    .success(function (result) {
+        //        $('#listAddLabel').html(result);
+        //        //$('#datatable-tabletools').load();
+        //        //$('#datatable-tabletools').DataTable({
+        //        //    "ajax": '../ajax/data/arrays.txt'
+        //        //});
+        //        $('#loadImage').addClass('hide')
+        //    })
+        //    .error(function (xhr, status) {
+        //        $('#loadImage').addClass('hide')
+        //    });
+        //});
+
+
+        //Khác
+        $('#smTest').click(function () {
+            $('#loadImage').removeClass('hide')
+            $.ajax({
+                url: '/AdminIT/Test/LoadList?comment=' + $('#Description').val(),
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST',
+                dataType: 'html'
+            })
+            .success(function (result) {
+                $('#resultTest').html(result);
+                $('#loadImage').addClass('hide')
+            })
+            .error(function (xhr, status) {
+
+            });
+        });
+
+        //Them product
+        $('#addP').click(function () {
+            $('#catProduct').addClass('hide');
+            $('#grProduct').removeClass('hide');
+            $('#NameProduct').attr('required', 'required');
+            $('#ProductId').removeAttr('required');
+        });
+
+        $('#delP').click(function () {
+            $('#grProduct').addClass('hide');
+            $('#catProduct').removeClass('hide');
+            $('#ProductId').attr('required', 'required');
+            $('#NameProduct').removeAttr('required');
+        });
+
+        //------------------
+
+        $('#TypeMenuId').click(function () {
+            $.ajax({
+                url: '/AdminIT/Menu/LoadMenuParent?idMenu=' + $(this).val(), // duong dan den action
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST', // phuong thuc
+                dataType: 'html'
+            })
+
+            .success(function (result) {
+                $('#MenuIdParent').html(result);
+            })
+
+            .error(function (xhr, status) {
+                alert(status);
+            })
+        });
+
+        $('#createSlide').click(function () {
+            var image = document.getElementById('Images');
+            var location = document.getElementById('Location');
+            var ismain = document.getElementById('IsMain');
+            $.ajax({
+                url: '/AdminIT/Tour/CreateSlide?img=' + image.val(), // duong dan den action
+                contentType: 'application/html; charset=utf-8',
+                type: 'POST', // phuong thuc
+                dataType: 'html'
+            })
+
+            .success(function (result) {
+                $('#ListSlide').html(result);
+            })
+
+            .error(function (xhr, status) {
+                alert(status);
+            })
+        });
+
+
+        //$(document).ready(function () {
+        //    var at = $('#EditPage').val();
+
+        //    if (at == 5) {
+        //        $('#linkPage').removeClass('hide')
+        //        $('#catePage').addClass('hide')
+        //        $('#fPage').addClass('hide')
+        //    }
+        //    else if (at == 1) {
+        //        $('#linkPage').addClass('hide')
+        //        $('#catePage').removeClass('hide')
+        //        $('#fPage').removeClass('hide')
+        //    }
+        //});
+
+        $('#fileP').change(function () {
+            $('#filePage').removeClass('hide')
+            $('#textPage').addClass('hide')
+        });
+
+        $('#textP').change(function () {
+            $('#filePage').addClass('hide')
+            $('#textPage').removeClass('hide')
+        });
+
+        $('#addGM').click(function () {
+            $("#GroupCommentId").attr("disabled", false);
+            $("#GroupCommentId").val(2);
+        });
+
+        //$('#delGM').click(function () {
+        //    $('#nameGM').addClass('hide')
+        //    $('#listGM').removeClass('hide')
+        //});
+
+    </script>
+
+    @*Hàm hiện thông báo*@
+    <script>
+        function notification(title, text, type) {
+            new PNotify({
+                title: title,
+                text: text,
+                type: type,
+                addclass: 'icon-nb'
+            });
+        }
+    </script>
+
+
+    <script src="~/Areas/AdminIT/Scripts/nettable/jquery.nestable.js"></script>
+
+    <script>
+            $(document).ready(function () {
+
+                var updateOutput = function (e) {
+                    var list = e.length ? e : $(e.target),
+                        output = list.data('output');
+                    if (window.JSON) {
+                        output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+                    } else {
+                        output.val('JSON browser support required for this demo.');
+                    }
+                };
+
+                // activate Nestable for list 1
+                $('#nestable').nestable({
+                    group: 1
+                })
+                .on('change', updateOutput);
+
+                // activate Nestable for list 2
+                $('#nestable2').nestable({
+                    group: 1
+                })
+                .on('change', updateOutput);
+
+                // output initial serialised data
+                updateOutput($('#nestable').data('output', $('#nestable-output')));
+                updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+                $('#nestable-menu').on('click', function (e) {
+                    var target = $(e.target),
+                        action = target.data('action');
+                    if (action === 'expand-all') {
+                        $('.dd').nestable('expandAll');
+                    }
+                    if (action === 'collapse-all') {
+                        $('.dd').nestable('collapseAll');
+                    }
+                });
+
+                $('#nestable3').nestable();
+
+            });
+        </script>
+
+</body>
+
+</html>

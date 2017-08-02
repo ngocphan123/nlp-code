@@ -1,0 +1,18 @@
+﻿@model StudyDoIT.Models.NLP.User
+
+@if (Model != null) { 
+<section id="start" class="section fullheight bg-secondary dark padding-v-60">
+    <!-- BG Image -->
+    <div class="bg-image animated infinite zooming"><img src="~/Uploads/files/@Model.Cover" alt="@Model.FullName"></div>
+
+    <!-- Middle -->
+    <div class="container container-wide v-bottom padding-v-80">
+        <img src="~/Uploads/_thumbs/Images/@Model.Avata" alt="@Model.FullName" class="img-circle margin-b-30" style="width:100px; height:100px;">
+        <h1 class="text-lg margin-b-0">Hi! Tôi là <strong> @Model.FullName </strong></h1>
+        <h5 class="text-tertiary margin-b-40">Kinh nghiệm @Model.Jobs</h5>
+        <span data-target="local-scroll"><a href="#resume" class="btn btn-lg btn-primary"><span>Tời hồ sơ của tôi!</span><i class="ti-arrow-down"></i></a></span>
+        <a href="~/Uploads/files/@Model.Attactment" class="btn btn-link"><span>Tải CV của tôi</span><i class="ti-file"></i></a>
+    </div>
+
+</section>
+}

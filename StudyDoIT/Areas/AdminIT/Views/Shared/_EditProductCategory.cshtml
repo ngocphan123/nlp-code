@@ -1,0 +1,44 @@
+﻿@model IEnumerable<StudyDoIT.Models.Admin.Category>
+@using StudyDoIT.Models.Admin;
+
+@if (Model != null) {
+    lCMSData db = new lCMSData();
+        string id = ViewBag.ProductId;
+        var cate = db.ProductCategoryMappings.Where(e => e.ProductId == id).ToList(); 
+
+<div class="form-group">
+    <label class="col-md-3 control-label"> Danh mục sản phẩm </label>
+    <div class="col-md-6">
+         
+        @foreach (var item in Model)
+        {
+            <div class="checkbox-custom checkbox-info">   
+                @if (cate.Count() > 0) { 
+                    bool k=false;
+                    foreach (var cn in cate) {
+                        if (cn.CategoryId == item.Id) { 
+                            k=true;                           
+                            break;
+                        }
+                    }
+                    if (k == true)
+                    {
+                        <input name="@item.Id" type="checkbox" id="checkboxExample" checked="checked">
+                    }
+                    else
+                    {
+                        <input name="@item.Id" type="checkbox" id="checkboxExample">
+                    }
+                    <label for="checkboxExample">@item.Name</label>
+                }
+                else
+                {
+                    <input name="@item.Id" type="checkbox" id="checkboxExample">
+                    <label for="checkboxExample">@item.Name</label>
+                }
+            </div>
+        }
+    </div>
+</div>
+}
+

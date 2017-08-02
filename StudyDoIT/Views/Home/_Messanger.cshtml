@@ -1,0 +1,36 @@
+﻿@model StudyDoIT.Models.NLP.User
+
+@if (Model != null)
+{
+    <a href="#" id="messenger-toggle" data-target="messenger" class="icon icon-sm icon-circle animated" data-animation="bounceIn" data-animation-delay="300"><i class="fa fa-comments"></i></a>
+    <div id="messenger" class="dark">
+        <div id="messenger-box">
+            <div class="messenger-box-content">
+                <!-- Close -->
+                <a href="#" class="messenger-close icon icon-hover icon-xs icon-circle icon-white" data-target="messenger"><i class="fa fa-times"></i></a>
+                <!-- Avatar -->
+                <img src="~/Uploads/_thumbs/Images/@Model.Avata" alt="@Model.FullName" class="img-circle margin-b-30">
+                <h3>Liên hệ với tôi!</h3>
+                <!-- Contact Form -->
+                <div class="form-alert"></div>
+                <div class="form-error alert alert-default"><ul></ul></div>
+                <div class="form-group">
+                    <label>Họ tên:</label>
+                    <input id="name" class="form-control" type="text" name="Name" required="required">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input id="email" class="form-control" type="email" name="Email" required="required">
+                </div>
+                <div class="form-group">
+                    <label>Nội dung liên hệ:</label>
+                    <textarea id="message" class="form-control" name="Contents" rows="4" required="required"></textarea>
+                </div>
+                <div class="form-group">
+                    <button id="Sent" class="btn btn-secondary"><span>Gửi liên hệ!</span><i class="ti-email"></i></button>
+                    <img id="sentLoad" class="hide" src="~/Content/gif/sending.gif" width="89" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

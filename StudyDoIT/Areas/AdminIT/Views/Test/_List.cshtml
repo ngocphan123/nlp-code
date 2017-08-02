@@ -1,0 +1,31 @@
+﻿@model IEnumerable<StudyDoIT.Areas.AdminIT.Controllers.TestController.ListSeKeyWord>
+
+<header class="panel-heading">
+    <div class="panel-actions">
+        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+    </div>
+    <h2 class="panel-title">Kết quả thực hiện:  <span> Điểm đánh giá chung: <span style="color:red">@ViewBag.Score</span> </span></h2>
+</header>
+<div class="panel-body">
+
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+           data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+        <thead>
+            <tr>
+                <th>Câu đánh giá</th>
+                <th>Từ khóa</th>
+                <th>Nhóm đặc trưng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="gradeX">
+                    <td>@Html.DisplayFor(modelItem => item.Comment)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Keyword)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GroupKeyword)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

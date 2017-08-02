@@ -1,0 +1,260 @@
+﻿@model StudyDoIT.Models.NLP.Comment
+
+@{
+    ViewBag.Title = "Thêm bình luận mới";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+                <h2 class="panel-title">Thêm bình luận mới</h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "LoadComment", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Chọn cách thêm bình luận</label>
+                        <div class="col-md-6">
+                            <input type="radio" value="1" name="typePage" id="fileP" checked />
+                            <span> Thêm bằng file</span>
+                            <input type="radio" value="2" name="typePage" id="textP" />
+                            <span> Thêm bằng văn bản</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Danh mục sản phẩm</label>
+                            <div class="col-md-4">
+                                @Html.DropDownList("ProductId", (SelectList)ViewBag.Product, "Chọn nhóm sản phẩm", new { @class = "form-control", id = "ProductId" })
+                            </div>
+                        </div>
+                    <div id="filePage">                       
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Chọn file bình luận</label>
+                            <div class="col-md-6">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="input-append">
+                                        <div class="uneditable-input">
+                                            <i class="fa fa-file fileupload-exists"></i>
+                                            <span class="fileupload-preview"></span>
+                                        </div>
+                                        <span class="btn btn-default btn-file">
+                                            <span class="fileupload-exists">Change</span>
+                                            <span class="fileupload-new">Select file</span>
+                                            <input type="file" name="fileProduct" id="fileProduct" />
+                                        </span>
+                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="col-md-3 control-label" for="inputPlaceholder" style="color:red;">File định dạng .txt, .dat</label>
+                        </div>
+                    </div>
+                    <div class="hide" id="textPage">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Tên sản phẩm</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("GroupCommentName", "", new { @class = "form-control", placeholder = "Tên sản phẩm" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Tên người bình luận</label>
+                            <div class="col-md-6">
+                                @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "Tên sản phẩm" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Nội dung bình luận</label>
+                            <div class="col-md-9">
+                                @Html.TextArea("Comment", new { @class = "form-control", rows = 5 })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh giá chung</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="Rating" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm khía cạnh Room</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="Room" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh khía cạnh Location</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="Location" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh khía cạnh Cleanliness</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="Cleanliness" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh khía cạnh CheckinFrontDesk</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="CheckinFrontDesk" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh khía cạnh Service</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="Service" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh khía cạnh Value</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="Value" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Điểm đánh khía cạnh BusinessService</label>
+                            <div class="col-md-6">
+                                <div data-plugin-spinner data-plugin-options='{ "value":0, "min": -1, "max": 5 }'>
+                                    <div class="input-group" style="width:150px;">
+                                        <input type="text" name="BusinessService" class="spinner-input form-control" maxlength="3" readonly>
+                                        <div class="spinner-buttons input-group-btn">
+                                            <button type="button" class="btn btn-default spinner-up">
+                                                <i class="fa fa-angle-up"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default spinner-down">
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-save"></i> Thêm mới</button>
+                            <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-refresh"></i> Làm mới</button>
+                            <button onclick="form.action ='/AdminIT/LoadComment/List'" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> Quay lại danh sách</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="~/Editor/ckfinder/ckfinder.js"></script>
+
+<script type="text/javascript">
+    function BrowseServer() {
+        var finder = new CKFinder();
+        //finder.basePath = '../';
+        finder.selectActionFunction = SetFileField;
+        finder.popup();
+    }
+    function SetFileField(fileUrl) {
+        document.getElementById('Images').value = fileUrl;
+        document.getElementById('displayAnhDaiDien').src = fileUrl;
+    }
+</script>
+
+
+
+<script src="~/Editor/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('Description');
+</script>

@@ -1,0 +1,163 @@
+﻿@model StudyDoIT.Models.NLP.Category
+
+@{
+    ViewBag.Title = "Thêm danh mục tin";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+                <h2 class="panel-title">Thêm danh mục tin</h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Tên danh mục tin</label>
+                        <div class="col-md-6">
+                            @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "Tên thể loại", required = "required" })
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-3 control-label" for="inputPlaceholder">Mô tả danh mục tin</label>
+                            <div class="col-md-9">
+                                @Html.TextArea("Description", new { @class = "form-control", rows = 5, required = "required" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Ảnh đại diện</label>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(model => model.Images, new { @class = "form-control", id = "Images" })
+                            <img id="displayAnhDaiDien" src="" alt="" class="img-thumbnail img-responsive" style="max-height:150px;" />
+                        </div>
+                        <div class="col-md-3">
+                            <input type="button" name="btImages" id="btImages" title="Chọn ảnh" value="Chọn ảnh đại diện" onclick="BrowseServer();" />
+                            @Html.ValidationMessageFor(model => model.Images)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Danh mục tin cha</label>
+                        <div class="col-md-6">
+                            @Html.DropDownList("CategoryParentId", (SelectList)ViewBag.Category, "Chọn danh mục cha", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CategoryParentId)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Thứ tự</label>
+                        <div class="col-md-6">
+                            <div data-plugin-spinner>
+                                <div class="input-group input-small">
+                                    <input name="Location" type="text" class="spinner-input form-control" readonly="readonly">
+                                    <div class="spinner-buttons input-group-btn btn-group-vertical">
+                                        <button type="button" class="btn spinner-up btn-xs btn-default">
+                                            <i class="fa fa-angle-up"></i>
+                                        </button>
+                                        <button type="button" class="btn spinner-down btn-xs btn-default">
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Location)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder"></label>
+                        <div class="col-md-6">
+                            <div class="checkbox-custom checkbox-info">
+                                <input name="IsHome" type="checkbox" id="checkboxExample3">
+                                <label for="checkboxExample">Hiển thị danh mục ngoài trang chủ</label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Publish)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder"></label>
+                        <div class="col-md-6">
+                            <div class="checkbox-custom checkbox-success">
+                                <input name="Publish" type="checkbox" checked="checked"  id="checkboxExample">
+                                <label for="checkboxExample">Hiển thị</label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Publish)
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Meta title</label>
+                        <div class="col-md-6">
+                            <input name="MetaTitle" class="form-control" data-plugin-maxlength maxlength="200" />
+                            <p>
+                                <code>Độ dài tối đa là </code> 200.
+                            </p>
+                            @Html.ValidationMessageFor(model => model.MetaTitle)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Meta keywords</label>
+                        <div class="col-md-6">
+                            <input name="MetaKeyword" class="form-control" data-plugin-maxlength maxlength="200" />
+                            <p>
+                                <code>Độ dài tối đa là </code> 200.
+                            </p>
+                            @Html.ValidationMessageFor(model => model.MetaKeyword)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Meta description</label>
+                        <div class="col-md-9">
+                            <textarea name="MetaDescrption" class="form-control" rows="3" data-plugin-maxlength maxlength="300"></textarea>
+                            <p>
+                                <code>Độ dài tối đa là </code> 300.
+                            </p>
+                            @Html.ValidationMessageFor(model => model.MetaDescrption)
+                        </div>
+                    </div>
+
+  
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-save"></i> Thêm mới</button>
+                            <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-refresh"></i> Làm mới</button>
+                            <button onclick="form.action ='/AdminIT/Category/List'" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> Quay lại danh sách</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="~/Editor/ckfinder/ckfinder.js"></script>
+
+<script type="text/javascript">
+    function BrowseServer() {
+        var finder = new CKFinder();
+        //finder.basePath = '../';
+        finder.selectActionFunction = SetFileField;
+        finder.popup();
+    }
+    function SetFileField(fileUrl) {
+        document.getElementById('Images').value = fileUrl;
+        document.getElementById('displayAnhDaiDien').src = fileUrl;
+    }
+</script>
+
+
+
+<script src="~/Editor/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('Description');
+</script>

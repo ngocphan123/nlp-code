@@ -1,0 +1,43 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.Comment>
+
+@if (Model != null)
+{
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            </div>
+            <h2 class="panel-title">Danh sách bình luận</h2>
+            <div style="float: right; margin-right: 40px; margin-top: -27px;">
+            </div>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+                   data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+                <thead>
+                    <tr>
+                        <th>Người đánh giá</th>
+                        <th>Điểm</th>
+                        <th>Nội dung đánh giá</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="gradeX">
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Rating)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Comment1)</td>
+                            <td class="actions">
+                                @*@Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |*@
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
+

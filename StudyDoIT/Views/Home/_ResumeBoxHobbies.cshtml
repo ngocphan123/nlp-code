@@ -1,0 +1,18 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.HobbiesInterest>
+
+@if (Model != null) {
+<div class="resume-box">
+    <span class="icon animated" data-animation="fadeInDown"><i class="ti-music-alt text-tertiary"></i></span>
+    <h4><strong>Sở thích</strong> &amp; Thói quen</h4>
+    <ul class="list-inline">
+        @foreach (var item in Model) { 
+        <li>
+            <div class="icon-box text-center">
+                <span class="icon icon-sm icon-circle icon-primary icon-filled"><i class="@item.Icons"></i></span>
+                <span class="title">@item.Title</span>
+            </div>
+        </li>
+        }
+    </ul>
+</div>
+}

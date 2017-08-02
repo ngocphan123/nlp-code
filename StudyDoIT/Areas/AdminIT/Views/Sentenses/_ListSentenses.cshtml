@@ -1,0 +1,62 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.Sentens>
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+
+                <h2 class="panel-title">Danh sách từng câu bình luận</h2>
+
+                <div style="float: right; margin-right: 40px; margin-top: -27px;">
+                </div>
+
+            </header>
+            <div class="panel-body">
+
+                <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+                       data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+
+                    <thead>
+                        <tr>
+                            <th>Tên người bình luận</th>
+                            <th>Điểm</th>
+                            <th>Câu bình luận</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="gradeX">
+                                <td>@Html.DisplayFor(modelItem => item.Comment.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Comment.Rating)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ContentReview)</td>
+                                <td class="actions">
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class="panel">
+            <div class="panel-body">
+                <label>Sản phẩm này chưa chạy tách câu, bạn có muốn chạy tách câu cho sản phẩm này!</label>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button id="loadSentenses" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-plus"></i> Chạy tách câu </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

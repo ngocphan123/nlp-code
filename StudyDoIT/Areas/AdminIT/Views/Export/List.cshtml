@@ -1,0 +1,52 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.SeKeyWord>
+
+@{
+    ViewBag.Title = "Danh sách danh mục tin";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        </div>
+
+        <h2 class="panel-title">Danh sách câu</h2>
+
+        @*<div style="float: right; margin-right: 40px; margin-top: -27px;">
+            <a class="btn btn-success" href="/AdminIT/Category/Create"> <span><i class="fa fa-plus"></i></span> Thêm mới</a>
+        </div>*@
+
+    </header>
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+               data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Người bình luận</th>
+                    <th>Câu bình luận</th>
+                    <th>Nhóm khía cạnh</th>
+                    <th>Từ khóa/Tần số</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="gradeX">
+                        <td>@Html.DisplayFor(modelItem => item.Sentens.Comment.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sentens.Comment.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Sentens.ContentReview)</td>
+                        <td>@Html.DisplayFor(modelItem => item.KeyWord.GroupWord.Word)</td>
+                        <td>@Html.DisplayFor(modelItem => item.KeyWord.Word)/@Html.DisplayFor(modelItem => item.KeyWord.CountKeywords.FirstOrDefault().Count)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.KeyWord>  
+@{
+   //kết nối đến bảng cẩn hiển thị
+}           
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+                <h2 class="panel-title">Thực nghiệm</h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "Test", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Nội dung bình luận</label>
+                        <div class="col-md-9">
+                            @Html.TextArea("Input", "", new { @class = "form-control", placeholder = "Nội dung bình luận", required = "required", rows=5})
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-save"></i> Thực hiện </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="form-group">
+    <h4 class="col-md-2 control-label" for="inputPlaceholder" style="color:red; font-weight:700;"> Kết quả: </h4>
+    <div class="col-md-9" style="margin-top:10px;">
+        @Html.Raw(ViewBag.Resuft)
+    </div>
+</div>

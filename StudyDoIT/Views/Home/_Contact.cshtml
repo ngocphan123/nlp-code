@@ -1,0 +1,30 @@
+﻿@model StudyDoIT.Models.NLP.User
+
+@if (Model != null) {
+<section id="contact" class="section padding-v-60">
+    <!-- BG Map -->
+    <div id="google-map" class="bg-image" data-latitude="21.047049" data-longitude="105.785191" data-style="light"></div>
+    <!-- Contact Box -->
+    <div class="contact-box bg-secondary dark animated" data-animation="flipInY">
+        <h1>Thông tin liên hệ!</h1>
+        <!-- Contact List -->
+        <ul class="list-unstyled list-unstyled-icons">
+            <li><i class="inline-icon icon-before-and-after text-primary fa fa-map-marker"></i>
+                @Model.Address
+            </li>
+            <li><i class="inline-icon icon-before-and-after text-primary fa fa-comment"></i><a href="mail:@Model.Email">@Model.Email</a></li>
+            <li><i class="inline-icon icon-before-and-after text-primary fa fa-phone"></i>@Model.PhoneNumber</li>
+        </ul>
+        <a href="#" class="btn btn-primary" data-target="messenger"><span> Sử dụng Form liên hệ</span><i class="ti-email"></i></a>
+        <h5 class="margin-t-60">Check my social media!</h5>
+        <ul class="list-inline">
+            <li><a href="#" class="icon icon-circle icon-xs icon-facebook"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#" class="icon icon-circle icon-xs icon-twitter"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#" class="icon icon-circle icon-xs icon-google-plus"><i class="fa fa-twitter"></i></a></li>
+        </ul>
+        <h5>Like me on Facebook</h5>
+        <!-- FB Like -->
+        <div class="fb-like" data-href="https://www.facebook.com/emsi.epu.it" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+    </div>
+</section>
+}

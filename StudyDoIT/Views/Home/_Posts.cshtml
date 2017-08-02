@@ -1,0 +1,35 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.Project>
+
+@if (Model != null) {
+<section id="posts" class="section bg-grey padding-v-60">
+    <!-- Content -->
+    <div class="container container-wide">
+        <h6 class="margin-b-50">Latest Posts</h6>
+
+        <div class="row masonry">
+            <!-- Masonry Sizer -->
+            <div class="masonry-sizer col-lg-4 col-sm-6 col-xs-12"></div>
+            @foreach (var item in Model) { 
+                <article class="post post-item masonry-item col-lg-4 col-sm-6 col-xs-12">
+                    <div class="post-photo">
+                        <img src="~/Uploads/_thumbs/images/@item.Images" alt="...">
+                    </div>
+                    <div class="post-content animated" data-animation="fadeInUp">
+                        <div class="meta">
+                            <span><i class="fa fa-eye"></i> @item.ViewNumber </span>
+                            <span><i class="fa fa-user"></i><a href="#">@item.User.FullName</a></span>
+                            @*<span><i class="fa fa-tag"></i><a href="#">Webdevelopment</a></span>*@
+                        </div>
+                        <div class="date">@item.DatePublish</div>
+                        <h1><a href="#">@item.Title</a></h1>
+                        <p class="lead">@item.Description</p>
+                        @*<p>Per ea tibique fabellas electram. Ea aliquam corpora vis. Ne quot civibus atomorum quo. </p>*@
+                        <a href="blog-post-mobile.html" class="btn btn-primary btn-xs"><span>Read more</span><i class="ti-arrow-right"></i></a>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+
+</section>
+}

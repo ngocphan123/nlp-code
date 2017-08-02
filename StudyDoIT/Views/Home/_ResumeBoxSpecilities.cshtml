@@ -1,0 +1,17 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.MySpeciality>
+
+@if (Model != null) {
+<div class="resume-box">
+    <span class="icon animated" data-animation="fadeInDown"><i class="ti-mouse-alt text-tertiary"></i></span>
+    <h4><strong>Kinh nghiệm</strong></h4>
+    @foreach (var item in Model) { 
+        <div class="speciality">
+            <span class="speciality-icon"><i class="@item.Icon"></i></span>
+            <div class="speciality-content">
+                <h5 class="margin-b-0">@item.Title</h5>
+                <p class="speciaity-description">@item.Contents</p>
+            </div>
+        </div>
+    }
+</div>
+}

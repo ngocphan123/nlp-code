@@ -1,0 +1,51 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.Comment>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<a class="btn btn-success" href="/AdminIT/Category/Create"> <span><i class="fa fa-plus"></i></span> Thêm mới</a>*@
+
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            @*<a class="btn btn-success" href="/AdminIT/Category/Create"> <span><i class="fa fa-plus"></i></span> Thêm mới</a>*@
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+            @*<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>*@
+        </div>
+
+        <h2 class="panel-title">Danh sách bình luận</h2>
+    </header>
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+               data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+
+            <thead>
+                <tr>
+                    <th>Nội dung bình luận</th>
+                    <th>Người bình luận</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="gradeX">
+                        <td>@Html.DisplayFor(modelItem => item.Contents)</td>
+                        <td>@Html.DisplayFor(modelItem => item.User.UserName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Publish)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.Url)</td>*@
+                        <td class="actions">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id.Trim() }) |
+                            @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id.Trim() })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

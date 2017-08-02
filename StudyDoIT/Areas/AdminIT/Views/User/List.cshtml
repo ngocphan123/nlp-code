@@ -1,0 +1,56 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.User>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        </div>
+
+        <h2 class="panel-title">Danh sách người dùng</h2>
+
+        <div style="float: right; margin-right: 40px; margin-top: -27px;">
+            <a class="btn btn-success" href="/AdminIT/User/Create"> <span><i class="fa fa-plus"></i></span> Thêm mới</a>
+        </div>
+
+    </header>
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+               data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+
+            <thead>
+                <tr>
+                    <th>Tên người dùng</th>
+                    <th>Tên đầy đủ</th>
+                    <th>Email</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="gradeX">
+                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Lock)</td>
+                        <td class="actions">
+                            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                            @if(item.Id!=1){
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+

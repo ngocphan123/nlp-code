@@ -1,0 +1,74 @@
+﻿﻿@model IEnumerable<StudyDoIT.Models.NLP.RoleFunction>
+
+<aside id="sidebar-left" class="sidebar-left">
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            Menu
+        </div>
+        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
+    <div class="nano">
+        <div class="nano-content">
+            <nav id="menu" class="nav-main" role="navigation">
+                <ul class="nav nav-main">
+                    <li class="nav-active">
+                        <a href="/AdminIT/Home">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>TRANG QUẢN LÝ</span>
+                        </a>
+                    </li>
+                    @RenderTreeItem(Model, "0")
+                    
+                    <li class="nav-parent">
+                        <a href="/">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <hr class="separator" />
+
+        </div>
+    </div>
+</aside>
+
+
+
+@helper RenderTreeItem(IEnumerable<StudyDoIT.Models.NLP.RoleFunction> Roles, string role)
+{
+    var list_role = Roles.Where(m => m.FunctionParent.Trim() == role.Trim()).OrderBy(m => m.Location);
+    string css_class = "";
+
+    foreach (var item in list_role)
+    {
+        int count_child = Roles.Where(m => m.FunctionParent == item.Id).Count();
+
+        if (count_child > 0 && role == "0") { css_class = ""; }
+
+        <li class="nav-parent">
+
+            @if (count_child > 0)
+            {
+                <a>
+                    <i class="fa fa-copy" aria-hidden="true"></i>
+                    <span>@item.Category.Name</span>
+                </a>
+                <ul class="nav nav-children">
+                    @RenderTreeItem(Roles, item.Id)
+                </ul>
+            }
+            else
+            {
+                <a href='~/adminit/@(item.Category.Url)'>
+                    <i class="fa fa-copy" aria-hidden="true"></i>
+                    <span>@item.Category.Name</span>
+                </a>
+            }
+
+        </li>
+    }
+}

@@ -1,0 +1,48 @@
+﻿@model StudyDoIT.Models.NLP.KeyWord
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+                <h2 class="panel-title"> Thêm từ khóa </h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Create", "KeyWords", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Từ khóa</label>
+                        <div class="col-md-6">
+                            @Html.TextBox("Word", "", new { @class = "form-control", placeholder = "Từ khóa", required = "required" })
+                            @Html.ValidationMessageFor(model => model.Word)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Nhóm từ khóa</label>
+                        <div class="col-md-6">
+                            @Html.DropDownList("GroupWordId", (SelectList)ViewBag.GroupWord, "Chọn nhóm từ khóa", new { @class = "form-control", required = "required"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-save"></i> Thêm mới</button>
+                            <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-refresh"></i> Làm mới</button>
+                            <button onclick="form.action = '/AdminIT/KeyWords/List'" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> Quay lại danh sách</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>

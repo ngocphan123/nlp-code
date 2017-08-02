@@ -1,0 +1,103 @@
+﻿﻿@model IEnumerable<StudyDoIT.Models.NLP.Category>
+
+
+@helper RenderTreeItem(IEnumerable<StudyDoIT.Models.NLP.Category> Roles, int role)
+{
+    var list_role = Roles.Where(m => m.CategoryParentId == role && m.Publish == 1).OrderBy(m => m.Location);
+    string css_class = "";
+
+    foreach (var item in list_role)
+    {
+        int count_child = Roles.Where(m => m.CategoryParentId == item.Id && m.Publish == 1).Count();
+
+        if (count_child > 0 && role == 0) { css_class = ""; }
+
+        <li class="dd-item" data-id="@item.Id">
+
+            @if (count_child > 0)
+            {
+                <div class="dd-handle">@item.Name</div>
+                <ol class="dd-list">
+                    @RenderTreeItem(Roles, item.Id)
+                </ol>
+            }
+            else
+            {
+                <div class="dd-handle">@item.Name</div>
+            }
+
+        </li>
+    }
+}
+
+
+<div class="col-lg-12">
+    <div class="dd col-lg-5" id="nestable">
+        <ol class="dd-list">
+            @RenderTreeItem(Model, 0)
+        </ol>
+    </div>
+    <div class="dd col-lg-5" id="nestable2" style="margin-left: 60px; border-color: red; border-width: 1px">
+        <ol class="dd-list">
+            <li class="dd-item" data-id="0">
+                <div class="dd-handle">Root</div>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="clearfix"></div>
+@*<br />
+<p><strong>Danh sách kết quả</strong></p>
+
+<textarea id="nestable-output" name="output1"></textarea>
+<textarea id="nestable2-output" name="output2"></textarea>*@
+<input type="hidden" id="nestable2-output" name="output2" />
+
+
+
+@*<script>
+    $(document).ready(function () {
+
+        var updateOutput = function (e) {
+            var list = e.length ? e : $(e.target),
+                output = list.data('output');
+            if (window.JSON) {
+                output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+            } else {
+                output.val('JSON browser support required for this demo.');
+            }
+        };
+
+        // activate Nestable for list 1
+        $('#nestable').nestable({
+            group: 1
+        })
+        .on('change', updateOutput);
+
+        // activate Nestable for list 2
+        $('#nestable2').nestable({
+            group: 1
+        })
+        .on('change', updateOutput);
+
+        // output initial serialised data
+        updateOutput($('#nestable').data('output', $('#nestable-output')));
+        updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+        $('#nestable-menu').on('click', function (e) {
+            var target = $(e.target),
+                action = target.data('action');
+            if (action === 'expand-all') {
+                $('.dd').nestable('expandAll');
+            }
+            if (action === 'collapse-all') {
+                $('.dd').nestable('collapseAll');
+            }
+        });
+
+        $('#nestable3').nestable();
+
+    });
+</script>*@

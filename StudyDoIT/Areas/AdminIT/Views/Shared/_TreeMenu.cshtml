@@ -1,0 +1,13 @@
+﻿@model StudyDoIT.Models.NLP.TypeMenu
+
+<div class="col-lg-12">
+    <div class="dd col-lg-5" id="nestable">
+        @Html.Action("LoadTreeMenuNoCategory", "Home", new { typeMenu = Model.Id })
+    </div>
+    <div class="dd col-lg-5" id="nestable2" style="margin-left: 60px; border-color: red; border-width: 1px">
+        @Html.Action("LoadTreeMenuCategory", "Home", new { typeMenu = Model.Id })
+    </div>
+</div>
+
+<input type="hidden" id="nestable2-output" name="output2" />
+

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.TypeMenu>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            @*<a class="btn btn-success" href="/AdminIT/Category/Create"> <span><i class="fa fa-plus"></i></span> Thêm mới</a>*@
+            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+        </div>
+
+        <h2 class="panel-title">Danh sách Menu</h2>
+
+        <div style="float: right; margin-right: 40px; margin-top: -27px;">
+            <a class="btn btn-success" href="/AdminIT/Menu/Create"> <span><i class="fa fa-plus"></i></span> Thêm mới</a>
+        </div>
+
+    </header>
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+               data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+
+            <thead>
+                <tr>
+                    @*<th>Tên danh mục</th>*@
+                    <th>Tên Menu</th>
+                    @*<th>Danh mục cha</th>
+                    <th>Vị trí</th>*@
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="gradeX">
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.TypeMenu.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MenuParent)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Location)</td>*@
+                        <td class="actions">
+                            @*<a href="/AdminIT/Category/Edit" id=@item.Id><i class="fa fa-pencil"></i></a>
+                                <a href="/AdminIT/Category/Delete" id=@item.Id class="delete-row"><i class="fa fa-trash-o"></i></a>*@
+                            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                            @*@Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |*@
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+

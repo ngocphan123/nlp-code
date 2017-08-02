@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Action("LoadStart", "Home", new { id=1})
+<!-- Section - Home / End -->
+<!-- Section - Resume -->
+@Html.Partial("_Resume")
+@*@Html.Action("LoadResume", "Home", new { id = 1 })*@
+<!-- Section - Resume / End -->
+<!-- Section - Portfolio -->
+@*@Html.Action("LoadPortfolio", "Home", new { id = 1 })*@
+<!-- Section - Portfolio / End -->
+<!-- Section - Testimonials -->
+@*@Html.Action("LoadPortfolio", "Home", new { id = 1 })*@
+<!-- Section - Testimonials / End -->
+<!-- Section - Latest Posts -->
+@Html.Action("LoadPost", "Home", new { id = 1 })
+<!-- Section - Latest Posts / End -->
+<!-- Section - Contact -->
+@Html.Action("LoadContact", "Home", new { id = 1 })
+<!-- Section - Contact / End -->
+

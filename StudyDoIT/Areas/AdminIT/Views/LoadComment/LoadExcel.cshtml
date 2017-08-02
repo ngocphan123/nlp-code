@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "LoadExcel";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>LoadExcel</h2>
+@using (Html.BeginForm("LoadExcel", "LoadComment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
+}
+

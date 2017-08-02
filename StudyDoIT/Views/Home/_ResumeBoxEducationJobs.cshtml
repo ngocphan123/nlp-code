@@ -1,0 +1,17 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.EducationJob>
+
+@if (Model != null) {
+<div class="resume-box">
+    <span class="icon animated" data-animation="fadeInDown"><i class="ti-calendar text-tertiary"></i></span>
+    <h4><strong>Học tập</strong> &amp; Công việc</h4>
+    <div class="timeline">
+        @foreach (var item in Model) { 
+        <div class="timeline-event te-primary">
+            <span class="event-date">@item.Date</span>
+            <span class="event-name">@item.Title</span>
+            <span class="event-description">@item.Contents</span>
+        </div>
+        }
+    </div>
+</div>
+}

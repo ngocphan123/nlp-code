@@ -1,0 +1,73 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.Vocabulary>
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <section class="panel" id="listVocabulary">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+
+                <h2 class="panel-title">Danh sách từ trong từ điển của sản phẩm</h2>
+            </header>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped mb-none" id="datatable-tabletools"
+                       data-swf-path="/Areas/AdminIT/Content/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+                    <thead>
+                        <tr>
+                            <th>Từ khóa</th>
+                            <th>Số lượng</th>
+                            <th>Loại từ</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="gradeX">
+                                <td>@Html.DisplayFor(modelItem => item.Word)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Counts)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TypeWord)</td>
+                                <td class="actions">
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class="panel">
+            <div class="panel-body" id="loadVoca">
+                <label>Sản phẩm này chưa chạy cập nhật từ cho từ điển, bạn có muốn chạy cập nhật từ vào từ điển cho sản phẩm này!</label>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="inputPlaceholder">Chọn cách lấy từ điển</label>
+                    <div class="col-md-6">
+                        <input type="radio" value="1" name="typeWord" id="word" checked />
+                        <span> Lấy bình thường </span>
+                        <input type="radio" value="2" name="typeWord" id="words" />
+                        <span> Lấy và tạo từ ghép </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button id="loadVocabulary" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-plus"></i> Chạy cập nhật từ điển </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <div>
+            <div class="clearfix"></div>
+            <div id="loadImage2" class="hide text-center">
+                <img src="~/Content/images/loadingFlightDetails.gif" width="180" />
+                <span style="font-style:italic">Đang thực hiên cập nhật từ điển...</span>
+            </div>
+        </div>
+    }
+}

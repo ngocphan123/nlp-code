@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "UserAuthentication";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<section class="body-sign body-locked" style="background: #ECEDF0;">
+    <div class="center-sign" style="padding-top:0px">
+        <div class="panel panel-sign" style="padding-top:0px">
+            <div class="panel-body">
+                @using (Html.BeginForm("UserAuthentication", "Account", FormMethod.Post))
+                {
+                    <div class="current-user text-center">
+                        <img src="@("/Uploads/_thumbs/Images"+Model.Photo??"default.png")" alt="@Model.FullName" class="img-circle user-image" data-lock-picture="..@("/Uploads/_thumbs/Images"+Model.Photo??"default.png")" />
+                        <h2 class="user-name text-dark m-none">@Model.UserName</h2>
+                        <p class="user-email m-none">@Model.Email</p>
+                    </div>
+                    <div class="form-group mb-lg">
+                        <div class="clearfix">
+                            <label class="pull-left">Code</label>
+                        </div>
+                        <div class="input-group input-group-icon">
+                            @Html.TextBox("Code", "", new { @class = "form-control input-lg" })
+                            <span class="input-group-addon">
+                                <span class="icon icon-lg">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p class="mt-xs mb-none">
+                                <a href="/AdminIT/Account/Login"> Login</a>
+                            </p>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button type="submit" class="btn btn-primary">UnLock</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

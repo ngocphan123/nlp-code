@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+
+                <h2 class="panel-title">Xóa người dùng</h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Delete", "User", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <h3>Bạn có chắc chắn xóa người dùng:</h3> <h1>@ViewBag.Meg</h1>
+                        <blockquote style="color:red">
+                            Lưu ý: Nếu xóa người dùng trên sẽ xóa tất cả các danh mục, bài viết,... 
+                            do người dùng đó tạo ra, nên bạn cần suy nghĩ kỹ trước khi xóa người dùng trên.
+                        </blockquote>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-danger"><i class="fa fa-remove"></i> Xóa</button>
+                            @*<button type="submit" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-refresh"></i> Lưu và tiếp tục sửa</button>*@
+                            <button onclick="form.action ='/AdminIT/User/List'" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> Quay lại danh sách</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+

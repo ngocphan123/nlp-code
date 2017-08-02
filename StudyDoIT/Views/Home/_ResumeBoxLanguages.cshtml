@@ -1,0 +1,19 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.SkillsAbility>
+
+@if (Model != null) {
+<div class="resume-box">
+    <span class="icon animated" data-animation="fadeInDown"><i class="ti-cup text-tertiary"></i></span>
+    <h4><strong>Kỹ năng Ngoại ngữ</strong></h4>
+    <!-- Skill -->
+    @foreach (var item in Model) { 
+    <div class="skill">
+        <div class="progress progress-animated">
+            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@item.Percents" aria-valuemin="0" aria-valuemax="100">
+                <span></span>
+            </div>
+        </div>
+        <strong>@item.Title</strong>
+    </div>
+    }
+</div>
+}

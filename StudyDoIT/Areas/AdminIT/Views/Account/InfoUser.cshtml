@@ -1,0 +1,168 @@
+﻿@model StudyDoIT.Models.NLP.User
+
+@{
+    ViewBag.Title = "Edit Info User";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                </div>
+
+                <h2 class="panel-title">Thông tin cá nhân</h2>
+            </header>
+            <div class="panel-body">
+                @*<form class="form-horizontal form-bordered">*@
+                @using (Html.BeginForm("InfoUser", "Account", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Tên người dùng</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", disabled = "" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Tên đầy đủ</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Email</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", disabled = "" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Ảnh đại diện</label>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(model => model.Avata, new { @class = "form-control", id = "Images" })
+                            <img id="displayAnhDaiDien" src='@("/Uploads/_thumbs/Images"+Model.Avata ?? "no_image.png")' alt="@(Model.Avata ?? "")" class="img-thumbnail img-responsive" style="max-height:150px;" />
+                        </div>
+                        <div class="col-md-3">
+                            <input type="button" name="btImages" id="btImages" title="Chọn ảnh" value="Chọn ảnh đại diện" onclick="BrowseServer();" />
+                            @Html.ValidationMessageFor(model => model.Avata)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Upload ảnh Cover</label>
+                        <div class="col-md-6">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-append">
+                                    <div class="uneditable-input">
+                                        <i class="fa fa-file fileupload-exists"></i>
+                                        <span class="fileupload-preview">@Model.Cover</span>
+                                    </div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileupload-exists">Change</span>
+                                        <span class="fileupload-new">Select file</span>
+                                        <input type="file" name="imgCover" id="imgCover" value="@Model.Cover" />
+                                    </span>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Địa chỉ</label>
+                        <div class="col-md-6">
+                            @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Giới tình</label>
+                        <div class="col-md-6">
+                            @if (Model.Sex.Trim().Equals("Nam"))
+                            {
+                                <input type="radio" value="Nam" name="Sex" checked />
+                                <span> Nam</span>
+                                <input type="radio" value="Nữ" name="Sex" />
+                                <span> Nữ</span>
+                            }
+                            else
+                            {
+                                <input type="radio" value="Nam" name="Sex" />
+                                <span> Nam</span>
+                                <input type="radio" value="Nữ" name="Sex" checked />
+                                <span> Nữ</span>
+                            }
+                            @Html.ValidationMessageFor(model => model.Sex)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Số điện thoại</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Ngày sinh</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input name="Birthday" type="text" data-plugin-datepicker class="form-control" value="@Model.Birthday">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Nghề nghiệp</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.Jobs, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Upload Hồ sơ cá nhân</label>
+                        <div class="col-md-6">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-append">
+                                    <div class="uneditable-input">
+                                        <i class="fa fa-file fileupload-exists"></i>
+                                        <span class="fileupload-preview">@Model.Attactment</span>
+                                    </div>
+                                    <span class="btn btn-default btn-file">
+                                        <span class="fileupload-exists">Change</span>
+                                        <span class="fileupload-new">Select file</span>
+                                        <input type="file" name="fileAttactment" id="fileAttactment" value="@Model.Attactment" />
+                                    </span>
+                                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-circle-o-notch"></i> Sửa thông tin cá nhân</button>
+                            <button onclick="form.action ='/AdminIT/Home/Index'" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-arrow-circle-o-right"></i> Quay lại trang quản trị</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<script src="~/Editor/ckfinder/ckfinder.js"></script>
+
+<script type="text/javascript">
+    function BrowseServer() {
+        var finder = new CKFinder();
+        finder.selectActionFunction = SetFileField;
+        finder.popup();
+    }
+    function SetFileField(fileUrl) {
+        document.getElementById('Images').value = fileUrl;
+        document.getElementById('displayAnhDaiDien').src = fileUrl;
+    }
+</script>
+

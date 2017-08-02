@@ -1,0 +1,29 @@
+﻿@model IEnumerable<StudyDoIT.Models.NLP.Menu>
+
+@if (Model != null) {
+<a href="#" id="mobile-nav-toggle" class="icon icon-circle icon-sm icon-primary icon-hover" data-target="mobile-nav">
+    <i class="ti-menu"></i>
+</a>
+<nav id="mobile-nav" class="bg-white">
+    <div class="mobile-nav-wrapper">
+        <!-- Avatar -->
+        <img src="~/Uploads/_thumbs/Images/@ViewBag.Avata" alt="@ViewBag.FullName" class="img-circle margin-b-30">
+        <!-- Nav -->
+        <ul class="nav nav-vertical">
+            @foreach (var item in Model) { 
+                <li><a href="#start"><span>@item.Category.Name</span></a></li>
+            }
+        </ul>
+        <!-- Social Media -->
+        <div class="margin-t-20">
+            <strong class="text-sm">Check my social media!</strong>
+            <ul class="list-inline margin-t-10">
+                <li><a href="#" class="icon icon-xs"><i class="fa fa-facebook text-muted"></i></a></li>
+                <li><a href="#" class="icon icon-xs"><i class="fa fa-twitter text-muted"></i></a></li>
+                <li><a href="#" class="icon icon-xs"><i class="fa fa-google-plus text-muted"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <a href="#" class="mobile-nav-close icon icon-hover icon-xs icon-circle icon-primary" data-target="mobile-nav"><i class="fa fa-times"></i></a>
+</nav>   
+}

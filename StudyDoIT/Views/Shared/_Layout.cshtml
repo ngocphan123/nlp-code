@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Trang cá nhân của DragonViet</title>
+    <!-- Basic Page Needs -->
+    <meta charset="UTF-8" />
+    <meta name="description" content="Trang cá nhân của DragonViet" />
+    <meta name="keywords" content="">
+    <meta name="author" content="dragonviet">
+    <!-- Mobile Specific Metas -->
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link rel="apple-touch-icon" href="assets/img/favicon_60x60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon_76x76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/img/favicon_120x120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicon_152x152.png">
+    <!-- Google Web Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,300,100' rel='stylesheet' type='text/css'>
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="~/Content/cssprofile/styles.css" />
+
+    <link rel="stylesheet" href="~/Content/pnotify/pnotify.custom.css" />
+    <!-- CSS Animations -->
+    <link rel="stylesheet" href="~/Content/cssprofile/animate.css" />
+    <!-- CSS Template -->
+    <link rel="stylesheet" href="~/Content/cssprofile/theme.css" />
+    <link rel="stylesheet" href="~/Content/cssprofile/color/blue-beige.css" id="color" />
+    <!-- Styleswitcher -->
+    <link rel="stylesheet" href="~/Content/styleswitcher/styleswitcher.css" />
+</head>
+<body class="bg-white">
+    <!-- FB Like -->
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "../../connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Loader -->
+    <div id="page-loader" class="bg-white"></div>
+    <!-- Loader / End -->
+    <!-- Content -->
+    <div id="content" class="bg-white">
+        <!-- Section - Home -->
+        @RenderBody()        
+    </div>
+    <!-- Content / End -->
+    <!-- Messanger -->
+    @Html.Action("LoadMessanger", "Home", new { id=1})
+    <!-- Mobile Navigation -->
+    @Html.Action("LoadMobileNavigation", "Home", new { id=""})
+    <!-- Ajax Wrapper & Loader -->
+    <div id="ajax-modal"></div>
+    <div id="ajax-loader"><i class="fa fa-spinner fa-spin"></i></div>
+
+    <!-- JS Libraries -->
+    <script src="~/Scripts/jsprofile/jquery-1.11.3.min.js"></script>
+    <!-- JS Plugins -->
+
+    <script src="~/Content/pnotify/pnotify.custom.js"></script>
+
+    <script>
+        window.paceOptions = {
+            target: '#page-loader',
+            ajax: false
+        };
+    </script>
+    <script src="~/Scripts/jsprofile/plugins.js"></script>
+    <!-- JS Core -->
+    <script src="~/Scripts/jsprofile/core.js"></script>
+
+    <script src="~/Areas/AdminIT/Scripts/ui-elements/examples.notifications.js"></script>
+    <!-- Google Map API -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <!-- Styleswitcher -->
+    @*<script src="~/Content/styleswitcher/styleswitcher.js"></script>*@
+    <!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information. -->
+    <!--
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    -->
+
+    <script>
+        //Gửi liên hệ
+        $('#Sent').click(function () {
+            if ($('#name').val() == '' || $('#name').val() == null) {
+                notification_tr("Thông báo", "Bạn chưa nhập tên!", "info");
+            }
+            else if ($('#email').val() == '' || $('#email').val() == null) {
+                notification_tr("Thông báo", "Bạn chưa nhập email!", "info");
+            }
+            else if ($('#message').val() == '' || $('#message').val() == null) {
+                notification_tr("Thông báo", "Bạn chưa nhập nội dung!", "info");
+            }
+            else {
+                $('#sentLoad').removeClass('hide');
+                $.ajax({
+                    url: '/Home/Sent?name=' + $('#name').val() + '&aemail=' + $('#email').val() + '&message=' + $('#message').val(),
+                    contentType: 'application/html; charset=utf-8',
+                    type: 'POST',
+                    dataType: 'html'
+                })
+                .success(function (result) {
+                    $('#sentLoad').addClass('hide');
+                    notification_tr("Thông báo", "Liên hệ thành công!", "success");
+                })
+                .error(function (xhr, status) {
+                    $('#sentLoad').addClass('hide');
+                    notification_tr("Thông báo", "Liên hệ thất bại!", "error");
+                    notification_tr("Thông báo", "Bạn kiểm tra lại email liên hệ!", "info");
+                });
+            }
+        });
+    </script>
+
+    @*Hàm hiện thông báo*@
+    <script>
+        //Thông báo trên phải
+        function notification_tr(title, text, type) {
+            new PNotify({
+                title: title,
+                text: text,
+                type: type,
+                addclass: 'icon-nb'
+            });
+        }
+
+        //Thông báo trên trái
+        function notification_tl(title, text, type) {
+            new PNotify({
+                title: title,
+                text: text,
+                type: type,
+                addclass: 'stack-topleft'
+            });
+        }
+    </script>
+</body>
+
+</html>

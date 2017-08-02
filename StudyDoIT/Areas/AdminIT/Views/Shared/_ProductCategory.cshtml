@@ -1,0 +1,14 @@
+﻿@model IEnumerable<StudyDoIT.Models.Admin.Category>
+
+<div class="form-group">
+    <label class="col-md-3 control-label"> Danh mục </label>
+    <div class="col-md-6">
+            @foreach (var item in Model)
+            {
+                <div class="checkbox-custom checkbox-info">
+                    <input name="@item.Id" type="checkbox" id="checkboxExample">
+                    <label for="checkboxExample">@item.Name</label>
+                </div>
+            }         
+    </div>
+</div>

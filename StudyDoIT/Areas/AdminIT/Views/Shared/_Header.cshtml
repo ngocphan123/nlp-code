@@ -1,0 +1,59 @@
+﻿@model StudyDoIT.Models.NLP.User
+
+<header class="header">
+    <div class="logo-container">
+        <a href="adminit/home" class="logo">
+            <img src="~/Areas/AdminIT/Content/images/logo-epu.png" height="35" />
+            @*<img src="/Areas/AdminIT/Content/images/dragonviet.png" height="35" alt="Admin" />*@
+        </a>
+        <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+        </div>
+    </div>
+    <h5 style="width: 75%; float: left; padding-left: 85px; font-size: 16px; font-weight: 700; color: red; padding-top: 10px;">HỆ THỐNG PHÂN TÍCH QUAN ĐIỂM NGƯỜI DÙNG ĐỐI VỚI CHẤT LƯỢNG SẢN PHẨM DỰA TRÊN NHẬN XÉT CÁ NHÂN</h5>
+    <!-- start: search & user box -->
+    <div class="header-right">
+        
+        <form action="" class="search nav-form hide">
+            <div class="input-group input-search">
+                <input type="text" class="form-control" name="q" id="q" placeholder="Tìm kiếm...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+
+        @*<span class="separator"></span>
+
+        <span class="separator"></span>*@
+
+        <div id="userbox" class="userbox">
+            <a href="" data-toggle="dropdown">
+                <figure class="profile-picture">
+                    <img src="@("/Uploads/_thumbs/Images/" + Model.Avata??"default.png")" alt="@Model.FullName" class="img-circle" data-lock-picture="..@("/Uploads/_thumbs/Images/"+Model.Avata??"default.png")" style="height:50px; width:50px;" />
+                </figure>
+                <div class="profile-info" data-lock-name="@Model.UserName" data-lock-email="@Model.Email">
+                    <span class="name">@Model.FullName</span>
+                    <span class="role">@Model.Role.Name</span>
+                </div>
+
+                <i class="fa custom-caret"></i>
+            </a>
+
+            <div class="dropdown-menu">
+                <ul class="list-unstyled">
+                    <li class="divider"></li>
+                    <li>
+                        <a role="menuitem" tabindex="-1" href="/AdminIT/Account/InfoUser"><i class="fa fa-user"></i> Thông tin cá nhân</a>
+                    </li>
+                    <li>
+                        <a role="menuitem" tabindex="-1" href="/AdminIT/Account/ChangePass/@Model.Id"><i class="fa fa-lock"></i> Đổi mật khẩu</a>
+                    </li>
+                    <li>
+                        <a role="menuitem" tabindex="-1" href="/AdminIT/Account/Logout"><i class="fa fa-power-off"></i> Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

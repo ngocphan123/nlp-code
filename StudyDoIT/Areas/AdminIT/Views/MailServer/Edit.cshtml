@@ -1,0 +1,96 @@
+﻿@model StudyDoIT.Models.NLP.MailServer
+
+@{
+    ViewBag.Title = "Cấu hình Email";
+    Layout = "~/Areas/AdminIT/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                    @*<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>*@
+                </div>
+
+                <h2 class="panel-title">Cấu hình Email</h2>
+            </header>
+            <div class="panel-body">
+                @using (Html.BeginForm("Edit", "MailServer", FormMethod.Post, new { @class = "form-horizontal form-bordered", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Host</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.Host, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Host)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Người gửi email</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.SenderMail, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SenderMail)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder"></label>
+                        <div class="col-md-6">
+                            <div class="checkbox-custom checkbox-success">
+                                @if (Model.EnableSSL == false)
+                                {
+                                    <input name="EnableSSL" type="checkbox" id="checkboxExample3">
+                                }
+                                else
+                                {
+                                    <input name="EnableSSL" type="checkbox" checked id="checkboxExample3">
+                                }
+                                <label for="checkboxExample3">EnableSSL</label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EnableSSL)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Địa chỉ email</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Mật khẩu email</label>
+                        <div class="col-md-6">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Tên hiển thị</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.DisplayName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DisplayName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputPlaceholder">Port</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.Port, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Port)
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-success"><i class="fa fa-save"></i> Lưu</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+</div>
+

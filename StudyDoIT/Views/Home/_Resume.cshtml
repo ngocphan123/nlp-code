@@ -1,0 +1,31 @@
+﻿
+
+<section id="resume" class="section padding-v-60">
+    <!-- Content -->
+    <div class="container container-wide">
+        <h6 class="margin-b-50">Resume</h6>
+
+        <div class="row padding-lg">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- Resume Box / About -->
+                @Html.Partial("_ResumeBoxAbout")
+                @*@Html.Action("LoadResumeBoxAbout", "Home", new { id = 1 })*@
+                <!-- Resume Box / Skills -->
+                @Html.Action("LoadResumeBoxSkills", "Home", new { id = 1 })
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- Resume Box / Specilities -->
+                @Html.Action("LoadResumeBoxSpecilities", "Home", new { id = 1 })
+                <!-- Resume Box / Education and Jobs -->
+                @Html.Action("LoadResumeBoxEducationJobs", "Home", new { id = 1 })
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- Resume Box / Languages -->
+                @Html.Action("LoadResumeBoxLanguages", "Home", new { id = 1 })
+                <!-- Resume Box / Hobbies -->
+                @Html.Action("LoadResumeBoxHobbies", "Home", new { id = 1 })
+            </div>
+        </div>
+    </div>
+
+</section>
