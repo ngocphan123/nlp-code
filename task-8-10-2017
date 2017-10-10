@@ -1,0 +1,318 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using edu.stanford.nlp.ling;
+using edu.stanford.nlp.tagger.maxent;
+using Console = System.Console;
+using java.util;
+using java.io;
+using StudyDoIT.Models.NLP;
+using StudyDoIT.Models.Common;
+using System.Data.Entity;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Net;
+using System.Text;
+using System.Diagnostics;
+using System.IO;
+
+namespace StudyDoIT.Areas.AdminIT.Controllers
+{
+    public class TaskController : Controller
+    {
+        lCMSData db = new lCMSData();
+        // GET: AdminIT/Task
+        public ActionResult Index()
+        {
+            var data = db.Vocabularies.ToList();
+            Stopwatch sw = Stopwatch.StartNew();
+            ViewBag.Time = sw.ElapsedMilliseconds;
+            sw.Stop();
+            return View(data);
+        }
+
+        public class TuDien
+        {
+            public string Id { get; set; }
+            public string Word { get; set; }
+            public string TypeWord { get; set; }
+            public string GroupCommentId { get; set; }
+            public int Count { get; set; }
+
+            public int Type { get; set; }
+            public TuDien(string id, string n1, string typeword, int s1, string groupommentid, int type)
+            {
+                Id = id;
+                Word = n1;
+                TypeWord = typeword;
+                GroupCommentId = groupommentid;
+                Count = s1;
+                Type = type;
+            }
+
+        }
+
+        public class ListTuDien
+        {
+            Dictionary<string, TuDien> Vocabulary;
+            public ListTuDien(Dictionary<string, TuDien> V)
+            {
+                Vocabulary = V;
+            }
+
+        }
+        public int Testdb(Object data)
+        {
+            var str = "";
+            return 1;
+        }
+        public  Dictionary<string, TuDien> TaskVocabulary(Object data, MaxentTagger tagger, string gr, Dictionary<string, string> stopword)
+        {
+            Stopwatch swword = Stopwatch.StartNew();
+            Dictionary<string, TuDien> OjVocabulary = new Dictionary<string, TuDien>();
+            foreach (var item in (dynamic)data)
+            {
+                var text = item.ContentReview;
+                //string text = "But a lot. ";
+                var sentences = MaxentTagger.tokenizeText(new java.io.StringReader(text)).toArray();
+                foreach (ArrayList sentence in sentences)
+                {
+                    try
+                    {
+                        var taggedSentence = tagger.tagSentence(sentence);
+                        string[] str1 = taggedSentence.ToString().Split(',', '[', ']');
+                        #region Tách không tạo từ ghép
+                        foreach (var item2 in str1)
+                        {
+                            try
+                            {
+                                string line = "";
+                                if (item2.Trim() != "")
+                                {
+                                    string[] str2 = item2.ToString().Split('/');
+                                    if (str2[1].Trim() == "JJ" || str2[1].Trim() == "JJR" || str2[1].Trim() == "JJS"
+                                        || str2[1].Trim() == "RB" || str2[1].Trim() == "RBR" || str2[1].Trim() == "RBS"
+                                        || str2[1].Trim() == "VBZ" || str2[1].Trim() == "VBD" || str2[1].Trim() == "VBN"
+                                        || str2[1].Trim() == "VBG" || str2[1].Trim() == "VB" || str2[1].Trim() == "VBP"
+                                        || str2[1].Trim() == "NNP" || str2[1].Trim() == "NNS" || str2[1].Trim() == "NN" || str2[1].Trim() == "NNPS")
+                                    {
+                                        string str3 = str2[0].Trim().ToLower();
+                                        if (stopword.TryGetValue(str3, out line)) continue;
+                                        //cập nhật từ điển
+                                        if (str2[0].Trim().Count() > 1)
+                                        {                                    
+                                            //string id, string n1, string typeword, int s1, string groupommentid, int type
+                                            TuDien Ojvalue = new TuDien("", "", "", 0, "", 0);
+                                            string idv = Public.GetID();
+                                            if (OjVocabulary.TryGetValue(str2[1].Trim() + "_" + str3, out Ojvalue))
+                                            {
+                                                Ojvalue.Count += 1;
+                                                OjVocabulary[str2[1].Trim() + "_" + str3] = Ojvalue;
+                                            }
+                                            else
+                                            {
+                                                OjVocabulary.Add(str2[1].Trim() + "_" + str3, new TuDien(idv, str3, str2[1].Trim(), 1, gr, 1));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch { }
+                        }
+                        #endregion
+                    }
+                    catch { }
+                }
+            }
+            swword.Stop();
+            ListTuDien V = new ListTuDien(OjVocabulary);
+            return OjVocabulary;
+        }
+
+        public ActionResult LoadListVocabulary()
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+           /* Stopwatch sw = Stopwatch.StartNew();
+            ViewBag.Time = sw.ElapsedMilliseconds;
+            sw.Stop();
+            */
+            Stopwatch sw1 = Stopwatch.StartNew();
+            string urlRoot = System.IO.Path.Combine(Server.MapPath("~/Uploads/english-left3words"), "english-left3words-distsim.tagger");
+            MaxentTagger tagger = new MaxentTagger(urlRoot);
+
+            FileStream fs = new FileStream("D:\\hoctap\\DoAnTotNghiep\\soucecode\\stopWord.txt", FileMode.Open);
+            StreamReader rd = new StreamReader(fs, Encoding.UTF8);
+            string line = "";
+            Dictionary<string, string> stopword = new Dictionary<string, string>();
+            while ((line = rd.ReadLine()) != null)
+            {
+                stopword.Add(line, line);
+            }
+
+            var tasks = new List<Task<Dictionary<string, TuDien>>>();
+            int RecordsPerPage = 5;
+            int recordStart = 100 / RecordsPerPage;
+            int Limitrecord = recordStart;
+            
+            for (int g = 1; g <= RecordsPerPage + 1; g++)
+            {
+                if (g == RecordsPerPage + 1 && 100 % RecordsPerPage != 0)
+                {
+                    Limitrecord = 100 % RecordsPerPage;
+                }
+                else if (g == RecordsPerPage + 1)
+                    break;
+                var dataGCTask = db.GroupComents.OrderBy(y => y.Id).Select(y => y.Id).Skip((g - 1) * recordStart).Take(Limitrecord).ToList();
+               // Object data = db.Sentenses.Where(e => dataGCTask.Contains(e.Comment.GroupCommentId)).ToList();
+                string idgr = "171002083102691";
+                Object data = db.Sentenses.Where(e => e.Comment.GroupCommentId == idgr).ToList();  
+               
+                Task<Dictionary<string, TuDien>> t = Task<Dictionary<string, TuDien>>.Factory.StartNew(() => TaskVocabulary(data, tagger, "170319111826335", stopword));
+                tasks.Add(t);
+            }
+           
+            //Task.WaitAll(tasks.ToArray());
+            int index = -1;
+            ViewBag.Time1 = sw1.ElapsedMilliseconds;
+            var tasknews = new List<Task>();
+            sw1.Stop();
+            Dictionary<string, TuDien> ListVocabulary = new Dictionary<string, TuDien>();
+           
+            int i = 0;
+ 
+            index = Task.WaitAny(tasks.ToArray());
+            Task<Dictionary<string, TuDien>> t1;
+             t1 = tasks[index];
+            while (index != -1 && tasks.Count > 0)
+            {
+                i = 0;
+                try
+                {
+                    if (t1.Status == TaskStatus.RanToCompletion)
+                    {
+                        foreach (string v in t1.Result.Keys)
+                        {
+                            TuDien Ojvalue = new TuDien("", "", "", 0, "", 0);
+                            if (ListVocabulary.TryGetValue(v, out Ojvalue))
+                            {
+                                string word = t1.Result[v].Word;
+                                string typeword = t1.Result[v].TypeWord;
+                                string groupcmdid = "170319111826335";
+                                Ojvalue.Count += t1.Result[v].Count;
+                                ListVocabulary[v] = Ojvalue;
+                                var data2 = db.Vocabularies.Where(e => e.Word.Trim().Equals(word) && e.TypeWord.Trim().Equals(typeword) && e.GroupCommentId == groupcmdid).ToList();
+                                var data6 = data2.FirstOrDefault();
+                                data6.Counts = Ojvalue.Count;
+                                db.Entry(data6).State = EntityState.Modified;
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                ListVocabulary.Add(v, t1.Result[v]);
+                                Vocabulary data4 = new Vocabulary();
+                                string idv = Public.GetID();
+                                while (db.Vocabularies.Where(e => e.Id == idv).Count() > 0)
+                                {
+                                    idv = Public.GetID();
+                                }
+                                data4.Id = idv;
+                                data4.Word = t1.Result[v].Word;
+                                data4.TypeWord = t1.Result[v].TypeWord;
+                                data4.GroupCommentId = "170319111826335";
+                                data4.Counts = t1.Result[v].Count;
+                                data4.Type = t1.Result[v].Type;
+                                db.Vocabularies.Add(data4);
+                                db.SaveChanges();
+                            }
+                        }
+                        tasks.RemoveAt(index); 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception: " + ex.Message);                 
+                }
+                
+                index = Task.WaitAny(tasks.ToArray());
+                if (index != -1 && tasks.Count > 0)
+                {
+                    t1 = tasks[index];
+                }              
+            }
+           
+            ViewBag.data = ListVocabulary;
+            var datalist = db.Vocabularies.ToList();
+            ViewBag.Time = sw.ElapsedMilliseconds;
+            sw.Stop();
+            return PartialView("_LoadVocabulary", datalist);
+        }
+        public void connecttask(List<Task> tasks)
+        {
+           /* foreach (Task<Dictionary<string, TuDien>> t in tasks.ToList())
+            {
+                if (t.Status == TaskStatus.RanToCompletion)
+                {
+                    foreach (string v in t.Result.Keys)
+                    {
+                        TuDien Ojvalue = new TuDien("", "", "", 0, "", 0);
+                        if (ListVocabulary.TryGetValue(v, out Ojvalue))
+                        {
+                            string word = t.Result[v].Word;
+                            string typeword = t.Result[v].TypeWord;
+                            string groupcmdid = "170319111826335";
+                            Ojvalue.Count += t.Result[v].Count;
+                            ListVocabulary[v] = Ojvalue;
+                            var data2 = db.Vocabularies.Where(e => e.Word.Trim().Equals(word) && e.TypeWord.Trim().Equals(typeword) && e.GroupCommentId == groupcmdid).ToList();
+                            var data6 = data2.FirstOrDefault();
+                            data6.Counts = Ojvalue.Count;
+                            db.Entry(data6).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            ListVocabulary.Add(v, t.Result[v]);
+                            Vocabulary data4 = new Vocabulary();
+                            string idv = Public.GetID();
+                            while (db.Vocabularies.Where(e => e.Id == idv).Count() > 0)
+                            {
+                                idv = Public.GetID();
+                            }
+                            data4.Id = idv;
+                            data4.Word = t.Result[v].Word;
+                            data4.TypeWord = t.Result[v].TypeWord;
+                            data4.GroupCommentId = "170319111826335";
+                            data4.Counts = t.Result[v].Count;
+                            data4.Type = t.Result[v].Type;
+                            db.Vocabularies.Add(data4);
+                            db.SaveChanges();
+                        }
+                    }
+                    tasks.RemoveAt(index); break;
+                }
+                i++;
+                // break;
+                //if (i == tasks.Count || tasks.Count == 0) break;
+            }*/
+        } 
+        public ActionResult TestFireBase()
+        {
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                user = "UserNameValue",
+                message = "MessageValue",
+            });
+            var request = WebRequest.CreateHttp("https://sample-98867.firebaseio.com/.json");
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            var buffer = Encoding.UTF8.GetBytes(json);
+            request.ContentLength = buffer.Length;
+            request.GetRequestStream().Write(buffer, 0, buffer.Length);
+            var response = (HttpWebResponse)request.GetResponse();
+            //json = (new StreamReader(response.GetResponseStream())).ReadToEnd();
+            return PartialView("_TestFireBase");
+        }
+    }
+}
